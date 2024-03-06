@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.fc .fc-view-harness {
+
+  overflow: auto;
+}
+.fc .fc-daygrid-day-frame {
+
+  height: 13vh;
+}
