@@ -3,8 +3,8 @@ import { onCloseModal, onOpenModal } from "../store/modal/modalSlice";
 
 export const useModalStore = ()=>{
   const dispatch = useAppDispatch();
-  const modal =  useAppSelector((state)=>state.modal); 
-  const {isOpen,modalTitle} = modal;
+  const {isOpen,modalTitle} =  useAppSelector((state)=>state.modal); 
+
 
   const openModal = ({title}:{title:string})=>{
     if(!title) return;

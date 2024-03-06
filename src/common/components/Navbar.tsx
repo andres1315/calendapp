@@ -1,19 +1,22 @@
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import logo from "../../assets/logo.png"
 import logoFull from "../../assets/logoFul.png"
+import { useNavBarStore } from "../../hooks/useNavBarStore";
 
 
 export const NavbarCalendar = () => {
+
+  const {navbarLinks,onChangeTab} =useNavBarStore()
   return (
     <Navbar fluid rounded className="bg-rose-100/60 mb-2">
       <Navbar.Brand href="#">
         <img
           src={logo}
-          className="mr-3 h-8 md:h-16 "
+          className="mr-3 h-8 md:h-14 "
           alt="Amate Logo"
         />
         <span className="self-center whitespace-nowrap text-xl font-semibold text-gray-800 ">
-          Agenda Citas
+          Citas
         </span>
       </Navbar.Brand>
       <div className="flex md:order-2">
@@ -42,15 +45,15 @@ export const NavbarCalendar = () => {
         </Dropdown>
         <Navbar.Toggle />
       </div>
-      {/* <Navbar.Collapse>
-        <Navbar.Link href="#" active>
-          Home
-        </Navbar.Link>
-        <Navbar.Link href="#">About</Navbar.Link>
-        <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="#">Pricing</Navbar.Link>
-        <Navbar.Link href="#">Contact</Navbar.Link>
-      </Navbar.Collapse> */}
+      <Navbar.Collapse>
+      {
+        navbarLinks.map((tab)=>(
+          <Navbar.Link active={tab.active} className={`cursor-pointer text-base  ${tab.active ? 'font-bold' : 'text-rose-500 font-semibold'}`} key={tab.title} onClick={()=>onChangeTab(tab)}>
+            {tab.title}
+          </Navbar.Link>
+        ))
+      }
+      </Navbar.Collapse>
     </Navbar>
   );
 };

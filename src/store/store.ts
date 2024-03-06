@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit"
 import { authReducer } from "./auth/authSlice"
 import { modalReducer } from "./modal/modalSlice"
 import { calendarReducer } from "./calendar/calendarSlice"
+import { navBarReducer } from "./navbar/navBarSlice"
 
 export const store = configureStore({
   reducer: {
     auth:authReducer,
     modal:modalReducer,
-    calendar:calendarReducer
+    calendar:calendarReducer,
+    navbar:navBarReducer
   }
 })
 

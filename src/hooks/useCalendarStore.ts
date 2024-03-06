@@ -1,5 +1,4 @@
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "../store/hook";
+import { useAppDispatch, useAppSelector } from "../store/hook";
 import { calendarApi } from "../api/calendarApiAxios";
 import { onAddEvent, onLoadEvents } from "../store/calendar/calendarSlice";
 
@@ -11,7 +10,7 @@ import {
 import { format } from "@formkit/tempo";
 
 export const useCalendarStore = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch()
   const { events, activeEvent, loading } = useAppSelector((state) => state.calendar);
 
   const loadCurrentEvents = async () => {
