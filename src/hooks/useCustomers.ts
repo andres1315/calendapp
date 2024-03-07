@@ -4,6 +4,7 @@ import Swal from "sweetalert2"
 import { useAppDispatch, useAppSelector } from "../store/hook"
 import {  addCustomer, loadCustomers } from "../store/customer/customerSlice"
 import type {Customer} from '../store/customer/customerSlice'
+import { AxiosError } from "axios"
 
 
 export const useCustomers = () => {
@@ -42,9 +43,9 @@ export const useCustomers = () => {
   }
 
 
-  const handleErrorApiCustomer = (error,textError:string)=>{
+  const handleErrorApiCustomer = (error:AxiosError,textError:string)=>{
       console.log('[customersHook]', error)
-      const messageError = error.response.data.message || textError || '[customersHook] Error processing request'
+      const messageError = error.response?.data?.message || textError || '[customersHook] Error processing request'
       Swal.fire({
         title:'Oops...',
         text:messageError,
