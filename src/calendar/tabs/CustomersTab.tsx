@@ -1,10 +1,9 @@
-import Swal from "sweetalert2";
-import { useCustomers } from "../../hooks/useCustomers";
+
 import { NewCustomer } from "../components/customer/NewCustomer";
 import { TableCustomer } from "../components/customer/TableCustomer";
 
 export const CustomersTab = () => {
-  const { customers } = useCustomers();
+
 
 
   return (
