@@ -17,7 +17,7 @@ export const TableCustomer = () => {
           {
             customers.map(customer=>(
 
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={customer.id}>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
               {customer.firstName.toUpperCase()} {customer.lastName.toUpperCase()}
             </Table.Cell>
