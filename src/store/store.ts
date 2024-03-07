@@ -4,6 +4,7 @@ import { modalReducer } from "./modal/modalSlice"
 import { calendarReducer } from "./calendar/calendarSlice"
 import { navBarReducer } from "./navbar/navBarSlice"
 import { customerReducer } from "./customer/customerSlice"
+import { employeReducer } from "./employe/employeSlice"
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     modal:modalReducer,
     calendar:calendarReducer,
     navbar:navBarReducer,
-    customer:customerReducer
+    customer:customerReducer,
+    employe:employeReducer
   }
 })
 
