@@ -3,13 +3,15 @@ import { authReducer } from "./auth/authSlice"
 import { modalReducer } from "./modal/modalSlice"
 import { calendarReducer } from "./calendar/calendarSlice"
 import { navBarReducer } from "./navbar/navBarSlice"
+import { customerReducer } from "./customer/customerSlice"
 
 export const store = configureStore({
   reducer: {
     auth:authReducer,
     modal:modalReducer,
     calendar:calendarReducer,
-    navbar:navBarReducer
+    navbar:navBarReducer,
+    customer:customerReducer
   }
 })
 

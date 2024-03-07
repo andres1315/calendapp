@@ -7,7 +7,7 @@ import { IncomesTab } from "../tabs/IncomesTab";
 
 interface ComponentsTabs {
   Calendar: JSX.Element;
-  Customer: JSX.Element;
+  Customers: JSX.Element;
   Employes: JSX.Element;
   Expenditures: JSX.Element;
   Incomes: JSX.Element;
@@ -18,7 +18,7 @@ export const CalendarPage = () => {
 
   const componentsTabs: ComponentsTabs = {
     Calendar: <CalendarTab />,
-    Customer: <CustomersTab />,
+    Customers: <CustomersTab />,
     Employes: <EmployesTab />,
     Expenditures: <ExpendituresTab />,
     Incomes: <IncomesTab />,
