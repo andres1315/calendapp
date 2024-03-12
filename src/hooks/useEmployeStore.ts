@@ -37,6 +37,12 @@ export const useEmployeStore = () => {
       .catch((e)=> handleErrorApiEmploye(e,'Error creando el empleado'))
   }
 
+  const onFindEmploye = (name:string)=>{
+    return calendarApi
+    .get(`/employes/filter?name=${name}`)
+    .catch((e)=> handleErrorApiEmploye(e,'Error buscando los empleado'))
+  }
+
 
   const handleErrorApiEmploye = (e:AxiosError , text:string)=>{
     console.log('[useEmployeStore]',e)
@@ -50,6 +56,7 @@ export const useEmployeStore = () => {
 
   return {
     employes,
-    onNewEmploye
+    onNewEmploye,
+    onFindEmploye
   }
 }

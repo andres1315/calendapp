@@ -4,7 +4,7 @@ import Swal from "sweetalert2"
 import { useAppDispatch, useAppSelector } from "../store/hook"
 import {  addCustomer, loadCustomers } from "../store/customer/customerSlice"
 import type {Customer} from '../store/customer/customerSlice'
-import { AxiosError } from "axios"
+import { AxiosError, AxiosInstance, AxiosPromise, AxiosResponse } from "axios"
 
 
 export const useCustomers = () => {
@@ -42,6 +42,14 @@ export const useCustomers = () => {
     })
   }
 
+  const findCustomer= (partialName:string):Promise<AxiosResponse|void>=>{
+      return calendarApi
+      .get(`/customers/filter?name=${partialName}`)
+      .catch((e)=>{
+        handleErrorApiCustomer(e, 'Error al obtener los clientes')
+      })
+  }
+
 
   const handleErrorApiCustomer = (error:AxiosError,textError:string)=>{
       console.log('[customersHook]', error)
@@ -55,7 +63,8 @@ export const useCustomers = () => {
   return {
     customers,
     getCustomer,
-    createCustomer
+    createCustomer,
+    findCustomer
   }
   
 }

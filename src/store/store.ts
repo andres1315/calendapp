@@ -6,6 +6,16 @@ import { navBarReducer } from "./navbar/navBarSlice"
 import { customerReducer } from "./customer/customerSlice"
 import { employeReducer } from "./employe/employeSlice"
 
+const persistanLocalStorageMiddleware = (store)=>(next)=>(action)=>{
+  console.log(action)
+  next(action)
+  console.log(store.getState())
+  if(action.type === 'navBar/changeTab'){
+    const {componentName} = action.payload
+    localStorage.setItem('amate_current_tab',componentName)
+  }
+}
+
 export const store = configureStore({
   reducer: {
     auth:authReducer,
@@ -14,7 +24,8 @@ export const store = configureStore({
     navbar:navBarReducer,
     customer:customerReducer,
     employe:employeReducer
-  }
+  },
+  middleware: (getDefaultEnhancers)=> getDefaultEnhancers().concat(persistanLocalStorageMiddleware),
 })
 
 

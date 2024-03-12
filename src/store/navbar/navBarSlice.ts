@@ -10,35 +10,49 @@ interface InitialState{
   tabs:Tab[]
 }
 
+const DEFAULT_NAVBAR = [
+  {
+    title:'Calendario',
+    componentName:'Calendar',
+    active:false
+  },
+  {
+    title:'Clientes',
+    componentName:'Customers',
+    active:false
+  },
+  {
+    title:'Empleados',
+    componentName:'Employes',
+    active:false
+  },
+  {
+    title:'Ingresos',
+    componentName:'Incomes',
+    active:false
+  },
+  {
+    title:'Egresos',
+    componentName:'Expenditures',
+    active:false
+  }
+]
+
+const tabsState =(()=>{
+  const persistantState =  localStorage.getItem('amate_current_tab')
+  if(!persistantState){
+    DEFAULT_NAVBAR[0].active=true
+  }else{
+    DEFAULT_NAVBAR.find(tab=> tab.componentName === persistantState)!.active=true
+  } 
+
+  return DEFAULT_NAVBAR
+  
+})()
+
 
 const initialState:InitialState={
-  tabs:[
-    {
-      title:'Calendario',
-      componentName:'Calendar',
-      active:true
-    },
-    {
-      title:'Clientes',
-      componentName:'Customers',
-      active:false
-    },
-    {
-      title:'Empleados',
-      componentName:'Employes',
-      active:false
-    },
-    {
-      title:'Ingesos',
-      componentName:'Incomes',
-      active:false
-    },
-    {
-      title:'Egresos',
-      componentName:'Expenditures',
-      active:false
-    }
-  ]
+  tabs:tabsState
 }
     
   
@@ -63,4 +77,4 @@ export const navBarSlice =  createSlice({
 
 export const navBarReducer = navBarSlice.reducer
 
-export const {changeTab,currentActiveTab} =navBarSlice.actions
+export const {changeTab} =navBarSlice.actions
