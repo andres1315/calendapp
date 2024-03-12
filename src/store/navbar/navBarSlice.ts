@@ -35,6 +35,11 @@ const DEFAULT_NAVBAR = [
     title:'Egresos',
     componentName:'Expenditures',
     active:false
+  },
+  {
+    title:'Servicios',
+    componentName:'Services',
+    active:false
   }
 ]
 
