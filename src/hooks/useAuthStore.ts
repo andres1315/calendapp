@@ -1,10 +1,12 @@
-import { calendarApi } from "../api/calendarApiAxios";
+import { CalendarApi } from "../api/calendarApi";
 import { onLogin, onLogout } from "../store/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../store/hook";
 
 export const useAuthStore = () => {
   const { token, user, loading, error } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
+
+  const calendarApi  = new CalendarApi
 
   const onStartLogin = async ({user,password}: {user: string;password: string;}) => {
     await calendarApi

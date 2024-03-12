@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react"
-import { calendarApi } from "../api/calendarApiAxios"
+import { useEffect,  } from "react"
+import { CalendarApi } from "../api/calendarApi"
 import Swal from "sweetalert2"
 import { useAppDispatch, useAppSelector } from "../store/hook"
 import {  addCustomer, loadCustomers } from "../store/customer/customerSlice"
 import type {Customer} from '../store/customer/customerSlice'
-import { AxiosError, AxiosInstance, AxiosPromise, AxiosResponse } from "axios"
+import { AxiosError,  AxiosResponse } from "axios"
 
 
 export const useCustomers = () => {
   const dispatch = useAppDispatch()
   const {customers} =  useAppSelector(state=>state.customer)
-
+  const calendarApi = new CalendarApi
 
   useEffect(()=>{
     getCustomer()

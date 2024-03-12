@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../store/hook";
-import { calendarApi } from "../api/calendarApiAxios";
+import { CalendarApi } from "../api/calendarApi";
 import { onAddEvent, onLoadEvents } from "../store/calendar/calendarSlice";
 
 import Swal from "sweetalert2";
@@ -7,12 +7,12 @@ import {
   EventForm,
   convertEventsToCalendarEvents,
 } from "../helpers/convertEventsToCalendarEvents";
-import { format } from "@formkit/tempo";
+
 
 export const useCalendarStore = () => {
   const dispatch = useAppDispatch()
   const { events, activeEvent, loading } = useAppSelector((state) => state.calendar);
-
+  const calendarApi =  new CalendarApi
   const loadCurrentEvents = async () => {
     return calendarApi
       .get("/events")

@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../store/hook"
-import { calendarApi } from "../api/calendarApiAxios"
+import { CalendarApi } from "../api/calendarApi"
 import { loadEmployes, newEmploye } from "../store/employe/employeSlice"
 import Swal from "sweetalert2"
 import { AxiosError } from "axios"
@@ -11,6 +11,7 @@ export const useEmployeStore = () => {
 
   const dispatch =  useAppDispatch()
   const {employes} = useAppSelector(state=>state.employe)
+  const calendarApi =  new CalendarApi
 
   useEffect(()=>{
     onLoadEmployes()
