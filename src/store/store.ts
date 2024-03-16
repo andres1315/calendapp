@@ -5,6 +5,7 @@ import { calendarReducer } from "./calendar/calendarSlice"
 import { navBarReducer } from "./navbar/navBarSlice"
 import { customerReducer } from "./customer/customerSlice"
 import { employeReducer } from "./employe/employeSlice"
+import { servicesReducer } from "./service/serviceSlice"
 
 const persistanLocalStorageMiddleware = (store)=>(next)=>(action)=>{
   console.log(action)
@@ -23,7 +24,8 @@ export const store = configureStore({
     calendar:calendarReducer,
     navbar:navBarReducer,
     customer:customerReducer,
-    employe:employeReducer
+    employe:employeReducer,
+    service:servicesReducer
   },
   middleware: (getDefaultEnhancers)=> getDefaultEnhancers().concat(persistanLocalStorageMiddleware),
 })
