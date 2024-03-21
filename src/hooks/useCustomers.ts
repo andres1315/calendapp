@@ -42,7 +42,7 @@ export const useCustomers = () => {
     })
   }
 
-  const findCustomer= (partialName:string):Promise<AxiosResponse|void>=>{
+  const findCustomer= (partialName:string):Promise<any>=>{
       return calendarApi
       .get(`/customers/filter?name=${partialName}`)
       .catch((e)=>{

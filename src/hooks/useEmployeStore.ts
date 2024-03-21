@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../store/hook"
 import { CalendarApi } from "../api/calendarApi"
 import { loadEmployes, newEmploye } from "../store/employe/employeSlice"
 import Swal from "sweetalert2"
-import { AxiosError } from "axios"
+import { AxiosAdapter, AxiosError, AxiosResponse } from "axios"
 
 import type {Employe} from '../store/employe/employeSlice'
 
@@ -38,7 +38,7 @@ export const useEmployeStore = () => {
       .catch((e)=> handleErrorApiEmploye(e,'Error creando el empleado'))
   }
 
-  const onFindEmploye = (name:string)=>{
+  const onFindEmploye = (name:string):Promise<any>=>{
     return calendarApi
     .get(`/employes/filter?name=${name}`)
     .catch((e)=> handleErrorApiEmploye(e,'Error buscando los empleado'))

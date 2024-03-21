@@ -1,10 +1,9 @@
-import { addHour, format } from "@formkit/tempo";
+
 import { createSlice } from "@reduxjs/toolkit";
-const formatDateCalendar ="YYYY-MM-DDTHH:mm:ss"
-const currentDate = new Date();
+
 
 export interface Event {
-  id?: number;
+  id: number;
   title: string;
   start: string,
   end: string,
@@ -14,17 +13,7 @@ export interface Event {
 
 const initialState = {
   loading: false,
-  events: [
-    {
-      id:1,
-      title: "loremp ipsum dolor sit amet, consectetur adipiscing elit. ",
-      start: format(currentDate, formatDateCalendar),
-      end: format(addHour(currentDate, 2), formatDateCalendar),
-      textColor: "white",
-      color: "#b692d6",
-
-    },
-  ] as Event[],
+  events: [],
   activeEvent: null
 }
 export const calendarSlice =  createSlice({
@@ -49,7 +38,7 @@ export const calendarSlice =  createSlice({
     },
     onLoadEvents: (state,{payload}) => {
       state.loading = false
-      state.events = [...payload];
+      state.events = payload;
       state.activeEvent = null;
     
     }

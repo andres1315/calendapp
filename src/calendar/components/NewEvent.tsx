@@ -1,23 +1,31 @@
 import { addHour, addMinute, format } from "@formkit/tempo";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent,  useState } from "react";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
-import { CustomComboBox } from "./employes/ComboBoxEmploye";
+import { CustomComboBox, type stateComboBox } from "./employes/ComboBoxEmploye";
 import { useCustomers } from "../../hooks/useCustomers";
 import { useEmployeStore } from "../../hooks/useEmployeStore";
 import { useServiceStore } from "../../hooks/useServiceStore";
 import { Label, Select } from "flowbite-react";
+import Swal from "sweetalert2";
+import { type EventForm } from "../../helpers/convertEventsToCalendarEvents";
+import { AxiosResponse } from "axios";
+import { useModalStore } from "../../hooks/useModalStore";
+
+
 
 export const NewEvent = () => {
   const currentDate = new Date();
   const formatDateInput ='YYYY-MM-DDTHH:mm:s'
-  const [formValues, setFormValues] = useState({
+  const initialState = {
     customerId: "",
-    service: "",
-    employeId: 2,
+    serviceId: "",
+    employeId: "",
     start: format(currentDate, formatDateInput, "es"),
     end: format(addHour(currentDate, 2), formatDateInput, "es"),
     notes: "",
-  });
+    title:""
+  }
+  const [formValues, setFormValues] = useState<EventForm>(initialState);
 
 
 
@@ -25,9 +33,10 @@ export const NewEvent = () => {
   const { findCustomer } = useCustomers();
   const {onFindEmploye} =  useEmployeStore()
   const {service} = useServiceStore()
+  const {closeModal}  =useModalStore()
 
-  const [customerSelected, setCustomerSelected] = useState(null);
-  const [employeSelected, setEmployeSelected] = useState(null);
+  const [customerSelected, setCustomerSelected] = useState<stateComboBox|null>(null);
+  const [employeSelected, setEmployeSelected] = useState<stateComboBox|null>(null);
   const timeOnHour = (time:number)=>{
     const hours = Math.floor(time/60)
     const minutes = time % 60
@@ -55,19 +64,32 @@ export const NewEvent = () => {
     setFormValues(prev=>{
       return {
         ...prev,
-        service:(serviceSelected),
+        serviceId:+serviceSelected,
         end:newEndTIme
       
       }
     })
-/*     document.querySelector('#end').value=newEndTIme */
   }
   
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newCalendarEvent = formValues;
+    if(!customerSelected) return Swal.fire('Opps','Debe seleccionar un cliente','error')
+    if(!employeSelected) return Swal.fire('Opps','Debe seleccionar un especialista','error')
 
-    addNewEvent(newCalendarEvent);
+    const newCalendarEvent = {...formValues};
+    newCalendarEvent.customerId= Number(customerSelected.id)
+    newCalendarEvent.employeId= Number(employeSelected.id)
+    newCalendarEvent.title= `Cita con ${customerSelected.text} para ${service.find(ser => ser.id===formValues.serviceId)?.service} con ${employeSelected.text} observaciones: ${formValues.notes}`,
+    addNewEvent(newCalendarEvent)
+    .then((res:AxiosResponse)=>{
+      const {status } =res
+      if(status === 201) {
+        closeModal()
+        Swal.fire('Cita','Se agrego al calendario la nueva cita','success')
+      }else{
+        Swal.fire('Opps..','Se presento un problema','error')
+      }
+    })
   };
   return (
     <form onSubmit={(e) => handleSubmitForm(e)}>
@@ -103,9 +125,9 @@ export const NewEvent = () => {
 
             <div className="sm:col-span-2">
               <div className="mb-2 block">
-                <Label htmlFor="services" value="Servicio" />
+                <Label htmlFor="serviceId" value="Servicio" />
               </div>
-              <Select id="services" required onChange={(e)=>onChangeService(e.target)} defaultValue={formValues.service}
+              <Select id="serviceId" name='serviceId' required onChange={(e)=>onChangeService(e.target)} defaultValue={formValues.serviceId}
 
               >
                 <option value="" disabled >Seleccione ...</option>

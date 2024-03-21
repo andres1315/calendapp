@@ -3,21 +3,26 @@ import { CalendarApi } from "../api/calendarApi";
 import { onAddEvent, onLoadEvents } from "../store/calendar/calendarSlice";
 
 import Swal from "sweetalert2";
-import {
-  EventForm,
-  convertEventsToCalendarEvents,
-} from "../helpers/convertEventsToCalendarEvents";
-
+import { EventForm } from "../helpers/convertEventsToCalendarEvents";
+import { useEffect } from "react";
 
 export const useCalendarStore = () => {
-  const dispatch = useAppDispatch()
-  const { events, activeEvent, loading } = useAppSelector((state) => state.calendar);
-  const calendarApi =  new CalendarApi
+  const dispatch = useAppDispatch();
+  const { events, activeEvent, loading } = useAppSelector(
+    (state) => state.calendar
+  );
+  const calendarApi = new CalendarApi();
+
+  useEffect(()=>{
+    loadCurrentEvents()
+  },[])
+
   const loadCurrentEvents = async () => {
     return calendarApi
-      .get("/events")
+      .get("/calendar")
       .then((response) => {
         const { data } = response;
+
         dispatch(onLoadEvents(data));
       })
       .catch((error) => {
@@ -27,23 +32,19 @@ export const useCalendarStore = () => {
   };
 
   const addNewEvent = async (event: EventForm) => {
-    const  formatTimeIso8601= "YYYY-MM-DDTHH:mm:ssZ"
-    
-    const eventDb = {
-      ...event,
-      title: `Cita con ${event.customerId} para ${event.service} con ${event.employeId} observaciones: ${event.notes}`,
-      
-    };
-    console.log(eventDb);
+  
     return calendarApi
-      .post("/calendar", eventDb)
+      .post("/calendar", event)
       .then((response) => {
         const { data } = response;
-        const newEvent = convertEventsToCalendarEvents([event])[0];
-        dispatch(onAddEvent({ ...newEvent, id: data.id }));
+        const { title, start, end } = event;
+        const newEvent = { title, start, end, id: data.id };
+        dispatch(onAddEvent(newEvent));
+        return response
       })
       .catch((error) => {
-        const message = error.response.data.message;
+        console.log('errorUseCalendar',error)
+        const message = error.response?.data?.message || '';
         const errorMessage =
           message.length > 0 ? message.join("-") : "Error al crear el evento";
         Swal.fire("Error", errorMessage, "error");
@@ -55,8 +56,6 @@ export const useCalendarStore = () => {
     events,
     activeEvent,
     loadingEvents: loading,
-
-    loadCurrentEvents,
     addNewEvent,
   };
 };

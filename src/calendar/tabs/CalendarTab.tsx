@@ -44,6 +44,7 @@ export const CalendarTab = () => {
             }}
             events={events}
             locale={esLocale}
+            eventColor="#7469B6"
             stickyHeaderDates={true}
             scrollTime={"09:00:00"}
             timeZone="America/Bogota"

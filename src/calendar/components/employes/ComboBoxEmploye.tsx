@@ -8,8 +8,13 @@ interface Props {
   name: string;
   fnFind: (value: string) => Promise<AxiosResponse | void>;
   label: string;
-  selectedItem: { id: number; text: string } | null;
-  setSelectedItem: Dispatch<SetStateAction<null>>;
+  selectedItem: stateComboBox | null;
+  setSelectedItem: Dispatch<SetStateAction< stateComboBox |null>>;
+}
+
+export type stateComboBox ={
+  id?:number,
+  text?:string
 }
 
 export const CustomComboBox = ({
@@ -67,7 +72,7 @@ export const CustomComboBox = ({
               as="ul"
               className="bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none mt-1"
             >
-              {items.map((item) => (
+              {items.map((item:any) => (
                 <Combobox.Option
                   key={item.id}
                   value={{
