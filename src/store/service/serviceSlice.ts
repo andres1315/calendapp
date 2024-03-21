@@ -1,11 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 
-type Service = {
+export type Service = {
   id?:number,
   service:string,
-  state:number,
-  time:number
+  state?:number,
+  time:number,
+  isMounting:number
 }
 
 interface InitialState{
@@ -22,10 +23,13 @@ export const serviceSlice = createSlice({
   reducers:{
     loadService:(state, action:PayloadAction<Service[]>)=>{
       state.service = action.payload
+    },
+    addNewService:(state,action:PayloadAction<Service>)=>{
+      state.service.push(action.payload)
     }
   }
 })
 
 
 export const servicesReducer = serviceSlice.reducer
-export const {loadService} = serviceSlice.actions
+export const {loadService,addNewService} = serviceSlice.actions
