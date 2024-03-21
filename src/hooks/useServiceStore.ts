@@ -1,7 +1,7 @@
 import { AxiosError } from "axios"
 import { CalendarApi } from "../api/calendarApi"
 import { useAppDispatch, useAppSelector } from "../store/hook"
-import { loadService } from "../store/service/serviceSlice"
+import { Service, addNewService, loadService } from "../store/service/serviceSlice"
 import Swal from "sweetalert2"
 import { useEffect } from "react"
 
@@ -28,6 +28,24 @@ export const useServiceStore = () => {
       .catch(e=>handleErrorApiService(e,'Ocurrio un error obteniendo los servicios'))
   }
 
+
+  const onAddService = async(service:Service)=>{
+    return calendarApi
+      .post('/services',service)
+      .then((res)=>{
+        const {status,data} = res
+        if(status == 201){
+
+          const newServices = {
+            ...service,
+            id:data.id
+          }
+          dispatch(addNewService(newServices))
+          return res
+        }
+      })
+  }
+
   const handleErrorApiService = (e:AxiosError , text:string)=>{
     console.log('[useEmployeStore]',e)
     const messageError = e.response?.data?.message || text ||  'Error procesado la solicitud de empleados'
@@ -40,5 +58,6 @@ export const useServiceStore = () => {
 
   return {
     service,
+    onAddService
   }
 }
