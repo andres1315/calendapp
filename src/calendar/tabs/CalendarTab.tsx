@@ -8,14 +8,44 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import esLocale from "@fullcalendar/core/locales/es";
+import { useState } from "react";
+import { PreviewEvent } from "../components/PreviewEvent";
+
+
+import { EventClickArg } from "@fullcalendar/core/index.js";
+import { EventDatabase } from "../../types";
+
+
 
 export const CalendarTab = () => {
-  const { events } = useCalendarStore();
+  const { events,eventDisplay } = useCalendarStore();
   const { openModal } = useModalStore();
+  const [currentModal,setCurrentModal] = useState('')
+
 
   const handleAddNewEvent = () => {
+    setCurrentModal('newEvent')
     openModal({ title: "Nueva Cita" });
   };
+
+
+  const handlePreviewEvent = (event:EventClickArg)=>{
+    const idEvent  = event.el.fcSeg.eventRange.def.publicId
+    eventDisplay(+idEvent)
+    setCurrentModal('previewEvent')
+    openModal({ title: "Detalle Evento" });
+  }
+
+
+  const ComponentModal =()=>{
+    if(currentModal =='newEvent'){
+      return <NewEvent/>
+    }else if(currentModal == 'previewEvent'){
+      return <PreviewEvent />
+    }else{
+      return <h1>No encontrado</h1>
+    }
+  }
 
   return (
     <>
@@ -34,17 +64,11 @@ export const CalendarTab = () => {
             initialView="timeGridDay"
             dateClick={function (arg) {
               const currentDate = new Date();
-              console.log(currentDate);
-              const newEvent = {
-                title: "New Event",
-                start: "2024-02-19T12:00:00",
-                end: new Date(arg.date),
-                color: "blue",
-              };
+              console.log(arg);
             }}
             events={events}
             locale={esLocale}
-            eventColor="#7469B6"
+            eventColor="rgb(210 150 150)"
             stickyHeaderDates={true}
             scrollTime={"09:00:00"}
             timeZone="America/Bogota"
@@ -67,7 +91,8 @@ export const CalendarTab = () => {
             nowIndicator={true}
             navLinks={true}
             eventClick={function (arg) {
-              console.log(arg);
+
+              handlePreviewEvent(arg)
             }}
             eventDrop={function (arg) {
               console.log(arg);
@@ -84,17 +109,17 @@ export const CalendarTab = () => {
             eventRemove={function (arg) {
               console.log(arg);
             }}
-            eventMouseEnter={function (arg) {
+            /* eventMouseEnter={function (arg) {
               console.log(arg);
             }}
             eventMouseLeave={function (arg) {
               console.log(arg);
-            }}
+            }} */
           />
         </div>
       </section>
       <CustomModal>
-        <NewEvent />
+        {ComponentModal()}
       </CustomModal>
     </>
   );

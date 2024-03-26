@@ -16,8 +16,12 @@ export const NewServices = () => {
   const {onAddService} = useServiceStore()
 
   const onSumbit:SubmitHandler<Inputs> = (data)=>{
-    console.log(data)
-    onAddService(data)
+    const dataHandle ={
+      ...data,
+      isMounting: (data.isMounting>0)
+    
+    }
+    onAddService(dataHandle)
       .then((res:AxiosResponse)=>{
         const {status} =  res
         if(Number(status) === 201){

@@ -6,7 +6,7 @@ export type Service = {
   service:string,
   state?:number,
   time:number,
-  isMounting:number
+  isMounting:boolean
 }
 
 interface InitialState{

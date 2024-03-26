@@ -21,13 +21,9 @@ export const calendarSlice =  createSlice({
   initialState,
   reducers:{
     onAddEvent: (state, {payload}:{payload:Event}) => {
+      state.activeEvent = null;
       state.loading = true;
       state.events.push(payload);
-      state.loading = false;
-    },
-    onRemoveEvent: (state,{payload}:{payload:Event}) => {  
-      state.loading = true;
-      state.events = state.events.filter(event=>event.title!==payload.title);
       state.loading = false;
     },
     onSetActiveEvent: (state,{payload}) => {  

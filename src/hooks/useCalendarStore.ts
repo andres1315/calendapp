@@ -1,10 +1,11 @@
 import { useAppDispatch, useAppSelector } from "../store/hook";
 import { CalendarApi } from "../api/calendarApi";
-import { onAddEvent, onLoadEvents } from "../store/calendar/calendarSlice";
+import { onAddEvent, onLoadEvents, onSetActiveEvent } from "../store/calendar/calendarSlice";
 
 import Swal from "sweetalert2";
 import { EventForm } from "../helpers/convertEventsToCalendarEvents";
 import { useEffect } from "react";
+import { EventDatabase } from "../types";
 
 export const useCalendarStore = () => {
   const dispatch = useAppDispatch();
@@ -52,10 +53,19 @@ export const useCalendarStore = () => {
       });
   };
 
+  
+  const eventDisplay = (id:number)=>{
+    const activeEvent =  events.filter((event:EventDatabase)=> event.id === id)[0]
+    dispatch(onSetActiveEvent(activeEvent))
+  }
+
+
   return {
     events,
     activeEvent,
     loadingEvents: loading,
+    eventDisplay,
     addNewEvent,
+    
   };
 };

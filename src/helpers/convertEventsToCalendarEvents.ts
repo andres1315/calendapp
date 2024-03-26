@@ -6,7 +6,8 @@ export interface EventForm {
   start: string;
   end: string;
   notes?: string;
-  title:string
+  title:string;
+  price:number
 }
 
 export const convertEventsToCalendarEvents = (event:EventForm[]) => {
