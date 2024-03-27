@@ -17,8 +17,8 @@ export const TableServices = () => {
           {
             service.map(serv=>(
 
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={serv.id}>
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+          <Table.Row className="bg-white [&>*]:py-2" key={serv.id}>
+            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
               {serv.service.toUpperCase()} 
             </Table.Cell>
             <Table.Cell>{serv.time}</Table.Cell>
@@ -26,7 +26,7 @@ export const TableServices = () => {
             <Table.Cell>
               <a
                 href="#"
-                className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                className="font-medium text-cyan-600 hover:underline "
               >
                 Edit
               </a>

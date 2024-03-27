@@ -18,8 +18,8 @@ export const TableEmploye = () => {
           {
             employes.map(employe=>(
 
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={employe.id}>
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+          <Table.Row className="bg-white [&>*]:py-2" key={employe.id}>
+            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
               {employe.firstName.toUpperCase()} {employe.lastName.toUpperCase()}
             </Table.Cell>
             <Table.Cell>{employe.user}</Table.Cell>
@@ -28,7 +28,7 @@ export const TableEmploye = () => {
             <Table.Cell>
               <a
                 href="#"
-                className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                className="font-medium text-cyan-600 hover:underline "
               >
                 Edit
               </a>

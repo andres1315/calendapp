@@ -12,7 +12,7 @@ export const EmployesTab = () => {
         <section className="col-span-12 md:col-span-3 md:border-r-2 min-h-[90vh] px-2">
           <NewEmploye />
         </section>
-        <section className="col-span-12 md:col-span-9  ">
+        <section className="col-span-12 md:col-span-9 mx-2 ">
           <TableEmploye />
         </section>
       </div>

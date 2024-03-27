@@ -39,7 +39,7 @@ export const NewServices = () => {
       onSubmit={handleSubmit(onSumbit)}
       className="flex flex-col  items-center [&>*]:w-full"
     >
-      <div className="mt-2">
+      <div className="">
         <Label htmlFor="small" value="Nombre Servcio" className="text-rose-500/50" />
         <TextInput
           id="service"
