@@ -48,7 +48,7 @@ export const NavbarCalendar = () => {
       <Navbar.Collapse>
       {
         navbarLinks.map((tab)=>(
-          <Navbar.Link active={tab.active} className={`cursor-pointer text-base  ${tab.active ? 'font-bold' : 'text-purple-700 font-semibold'}`} key={tab.title} onClick={()=>onChangeTab(tab)}>
+          <Navbar.Link active={tab.active} className={`cursor-pointer text-base  ${tab.active ? 'font-bold' : 'text-rose-600 font-semibold'}`} key={tab.title} onClick={()=>onChangeTab(tab)}>
             {tab.title}
           </Navbar.Link>
         ))

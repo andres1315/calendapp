@@ -1,22 +1,24 @@
 import { useAppDispatch, useAppSelector } from "../store/hook";
 import { CalendarApi } from "../api/calendarApi";
-import { onAddEvent, onLoadEvents, onSetActiveEvent } from "../store/calendar/calendarSlice";
+import { onAddEvent, onLoadEvents, onRemoveActiveEvent, onSetActiveEvent, onUpdateEvent } from "../store/calendar/calendarSlice";
 
 import Swal from "sweetalert2";
 import { EventForm } from "../helpers/convertEventsToCalendarEvents";
-import { useEffect } from "react";
+
 import { EventDatabase } from "../types";
 
 export const useCalendarStore = () => {
   const dispatch = useAppDispatch();
-  const { events, activeEvent, loading } = useAppSelector(
+  const { events, activeEvent, loading, } = useAppSelector(
     (state) => state.calendar
   );
   const calendarApi = new CalendarApi();
 
-  useEffect(()=>{
-    loadCurrentEvents()
-  },[])
+
+  const updateEvent = (event)=>{
+    dispatch(onUpdateEvent(event))
+  }
+
 
   const loadCurrentEvents = async () => {
     return calendarApi
@@ -60,12 +62,20 @@ export const useCalendarStore = () => {
   }
 
 
+  const removeActiveEvent =()=>{
+    dispatch(onRemoveActiveEvent())
+  }
+
+
   return {
     events,
     activeEvent,
     loadingEvents: loading,
     eventDisplay,
     addNewEvent,
+    removeActiveEvent,
+    loadCurrentEvents,
+    updateEvent
     
   };
 };

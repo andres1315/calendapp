@@ -8,21 +8,23 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import esLocale from "@fullcalendar/core/locales/es";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PreviewEvent } from "../components/PreviewEvent";
 
 
 import { EventClickArg } from "@fullcalendar/core/index.js";
-import { EventDatabase } from "../../types";
+
 
 
 
 export const CalendarTab = () => {
-  const { events,eventDisplay } = useCalendarStore();
+  const { events,eventDisplay,loadCurrentEvents } = useCalendarStore();
   const { openModal } = useModalStore();
   const [currentModal,setCurrentModal] = useState('')
 
-
+  useEffect(()=>{
+    loadCurrentEvents()
+  },[])
   const handleAddNewEvent = () => {
     setCurrentModal('newEvent')
     openModal({ title: "Nueva Cita" });

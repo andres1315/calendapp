@@ -6,6 +6,7 @@ import { navBarReducer } from "./navbar/navBarSlice"
 import { customerReducer } from "./customer/customerSlice"
 import { employeReducer } from "./employe/employeSlice"
 import { servicesReducer } from "./service/serviceSlice"
+import { incomeReducer } from "./income/incomeSlice"
 
 const persistanLocalStorageMiddleware = (store)=>(next)=>(action)=>{
 
@@ -25,7 +26,8 @@ export const store = configureStore({
     navbar:navBarReducer,
     customer:customerReducer,
     employe:employeReducer,
-    service:servicesReducer
+    service:servicesReducer,
+    income:incomeReducer
   },
   middleware: (getDefaultEnhancers)=> getDefaultEnhancers().concat(persistanLocalStorageMiddleware),
 })

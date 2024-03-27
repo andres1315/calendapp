@@ -1,5 +1,6 @@
 
 import { createSlice } from "@reduxjs/toolkit";
+import { EventDatabase } from "../../types";
 
 
 export interface Event {
@@ -29,6 +30,9 @@ export const calendarSlice =  createSlice({
     onSetActiveEvent: (state,{payload}) => {  
       state.activeEvent = payload;
     },
+    onRemoveActiveEvent:(state)=>{
+      state.activeEvent=null
+    },
     onClearActiveEvent: (state) => {  
       state.activeEvent = null;
     },
@@ -37,10 +41,15 @@ export const calendarSlice =  createSlice({
       state.events = payload;
       state.activeEvent = null;
     
+    },
+    onUpdateEvent:(state,{payload})=>{
+      const eventId = payload.id
+      const index = state.events.findIndex((event:EventDatabase) => event.id == eventId)
+      state.events[index] = payload
     }
   }
 
 })
 
 export const calendarReducer = calendarSlice.reducer;
-export const { onAddEvent, onRemoveEvent, onSetActiveEvent, onClearActiveEvent,onLoadEvents } = calendarSlice.actions;
+export const { onAddEvent, onRemoveActiveEvent, onSetActiveEvent, onClearActiveEvent,onLoadEvents, onUpdateEvent } = calendarSlice.actions;
