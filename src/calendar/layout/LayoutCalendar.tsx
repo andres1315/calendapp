@@ -9,7 +9,7 @@ export const LayoutCalendar = ({ children }: Props) => {
   return (
     <>
       <NavbarCalendar />
-      <section className="mx-2">{children}</section>
+      <section className="mx-1">{children}</section>
     </>
   );
 };

@@ -8,7 +8,7 @@ export const NavbarCalendar = () => {
 
   const {navbarLinks,onChangeTab} =useNavBarStore()
   return (
-    <Navbar fluid rounded className="bg-rose-100/60 mb-2">
+    <Navbar fluid rounded className="bg-rose-100/60 mb-1">
       <Navbar.Brand href="#">
         <img
           src={logo}

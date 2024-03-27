@@ -53,14 +53,14 @@ export const CalendarTab = () => {
     <>
       <section className="flex flex-col overflow-hidden">
         <Button
-          gradientMonochrome="purple"
+          gradientMonochrome="pink"
           className="w-28"
-          size={"sm"}
+          size={"xs"}
           onClick={() => handleAddNewEvent()}
         >
           Nueva Cita
         </Button>
-        <div className="flex max-h-[calc(100vh-10em)]  ">
+        <div className="flex max-h-[calc(100vh-9em)]  ">
           <FullCalendar
             plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
             initialView="timeGridDay"
